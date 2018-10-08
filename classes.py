@@ -44,7 +44,7 @@ class Frame(object):
 
         '''
         kps = cv2.goodFeaturesToTrack(self.gray, **self.params.get('shi_tomasi'))
-        kp = [cv2.KeyPoint(x=f.ravel()[0], y=f.ravel()[1], _size=20) for f in kps]
+        kp = [cv2.KeyPoint(x=f.ravel()[0], y=f.ravel()[1], _size=10) for f in kps]
         orb = cv2.ORB_create()
         self.corners = kps
         self.kp, self.des = orb.compute(self.gray, kp)
