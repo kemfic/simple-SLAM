@@ -1,0 +1,40 @@
+TODO
+==================
+  - Inter-frame feature tracking
+  - Motion Vectors
+  - Essential Matrix Estimation
+  - Trajectory Generation
+  - Triangulation
+  - BA
+  - Loop Closure
+
+
+PIPELINE:
+Feature Detection
+  - Shi-Tomasi Detection
+  - ORB Tracking
+
+Optical flow/Feature Matching
+  - Pick between the following:
+    - Lucas Kanade Optical Flow
+    - ORB Feature Matching using Hamming Distance
+
+Essential Matrix Estimation
+  - RANSAC
+
+R, t Estimation using Essential Matrix
+  - cv2.recoverPose
+
+Triangulation
+
+Bundle Adjustment
+  - GTSAM / G2O
+
+
+Links
+================
+
+http://nghiaho.com/?p=2379
+http://avisingh599.github.io/vision/monocular-vo/
+https://github.com/geohot/twitchslam
+https://github.com/uoip/monoVO-python

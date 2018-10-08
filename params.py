@@ -1,6 +1,8 @@
 # ficiciSLAM Parameters
 import cv2
 import numpy as np
+from skimage.transform import EssentialMatrixTransform as T
+
 param = dict(
 	intrinsic_params = dict(
 		alpha = 1000,
@@ -9,10 +11,9 @@ param = dict(
 		),
 
 	shi_tomasi = dict(
-		maxCorners = 4000,
-		qualityLevel = 0.02,
-		minDistance = 1
-	),
+		maxCorners = 5000,
+		qualityLevel = 0.001,
+		minDistance = 1),
 
 	lk_params = dict(
 		winSize = (21,21),
@@ -25,9 +26,10 @@ param = dict(
 		),
 
 	ransac_params = dict(
+        model_class = T,
 		min_samples = 8,
-		residual_threshold = 1,
-		max_trials = 5000
+		residual_threshold = 0.5,
+		max_trials = 100
 		),
 
 	em_params = dict(

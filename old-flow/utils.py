@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from skimage.measure import ransac
-from skimage.transform import FundamentalMatrixTransform
+#from skimage.transform import FundamentalMatrixTransform
 
 
 from params import *
@@ -58,14 +58,15 @@ def getORB(img, kps):
 	kp, des = orb.compute(img, kp)
 
 	return kp, des
-
+'''
 def getFundamentalMatrix(kp1, kp2, params=ransac_params):
-	'''
-	# Uses RANSAC to get fundamental matrix and inliers
-	# http://scikit-image.org/docs/dev/auto_examples/transform/plot_fundamental_matrix.html
-	'''
+'''
+# Uses RANSAC to get fundamental matrix and inliers
+# http://scikit-image.org/docs/dev/auto_examples/transform/plot_fundamental_matrix.html
+'''
 	model, inliers = ransac((kp1, kp2), FundamentalMatrixTransform, **params)
 	kp1_in = kp1[inliers]
 	kp2_in = kp2[inliers]
 
 	return model, kp1_in, kp2_in
+'''

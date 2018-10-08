@@ -1,7 +1,9 @@
 import cv2
 import numpy as np
+import skimage.transform as transform
 from skimage.measure import ransac
-from skimage.transform import FundamentalMatrixTransform
+
+#from skimage.transform import FundamentalMatrixTransform
 
 
 from params import *
@@ -16,7 +18,7 @@ def hamming_distance(a, b):
 
 def match_frames_knn(frame1, frame2):
 	'''
-	Matches descriptors between two frames. 
+	Matches descriptors between two frames.
 	docs.opencv.org/3.0-beta/doc/py_tutorials/py_feature2d/py_matcher/py_matcher.html
 	'''
 	bf = cv2.bfMatcher(cv2.NORM_HAMMING, crossCheck=True)
@@ -31,7 +33,7 @@ def match_frames_knn(frame1, frame2):
 	# TODO Finish Implementation
 	return None
 
-def match_frames_lk(frame1, frame2, params=lk_params):
+def match_frames_lk(frame1, frame2, params=param.get('lk_params')):
 	'''
 	Optical Flow between two frames using Lucas-Kanade Method
 	'''
@@ -44,12 +46,12 @@ def match_frames_lk(frame1, frame2, params=lk_params):
 		**params
 		)
 
-	pt2 = pt2[status == 1]
-	pt1 = pt1[status == 1]
+	pt2 = frame1.pt[status == 1]
+	pt1 = frame2.pt[status == 1]
 
 	return pt1, pt2
 
-def getFeatures(img, params=shi_tomasi):
+def getFeatures(img, params=param.get('shi_tomasi')):
 	'''
 	Shi-Tomasi Corner Detection
 	    IN:
@@ -60,7 +62,7 @@ def getFeatures(img, params=shi_tomasi):
 	# corners = cv2.goodFeaturesToTrack(img, maxCorners, qualityLevel, minDist)
 	return corners
 
-def getEssential(pt1, pt2, params=em_params):
+def getEssential(pt1, pt2, params=param.get('em_params')):
 	'''
 
 	https://stackoverflow.com/questions/33906111/how-do-i-estimate-positions-of-two-cameras-in-opencv
@@ -84,12 +86,12 @@ def getORB(img, kps):
 
 	return kp, des
 
-def getFundamentalMatrix(kp1, kp2, params=ransac_params):
+def getFundamentalMatrix(kp1, kp2, params=param.get('ransac_params')):
 	'''
 	Uses RANSAC to get fundamental matrix and inliers
 	http://scikit-image.org/docs/dev/auto_examples/transform/plot_fundamental_matrix.html
 	'''
-	model, inliers = ransac((kp1, kp2), FundamentalMatrixTransform, **params)
+	model, inliers = ransac((kp1, kp2), transform.FundamentalMatrixTransform, **params)
 	kp1_in = kp1[inliers]
 	kp2_in = kp2[inliers]
 

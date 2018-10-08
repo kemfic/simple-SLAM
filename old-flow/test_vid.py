@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 from params import *
 from utils import *
 if __name__ == '__main__':
-	cap = cv2.VideoCapture('test-vid/0.mp4')
+	cap = cv2.VideoCapture('../test-vid/0.mp4')
 
 
 	ret, frame1 = cap.read()
@@ -25,13 +25,13 @@ if __name__ == '__main__':
 	kp, des = getORB(frame1, corner)
 	corners.append(kp)
 	prev = frame1
-	
+
 	while(cap.isOpened()):
 		ret, frame = cap.read()
 		frame = cv2.resize(frame, (0,0), fx=0.5, fy=0.5)
 		out = frame
 		frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-		
+
 
 		# Track new features if we lose too many corners
 		if (len(corners[-1]) < 2000):
