@@ -56,29 +56,7 @@ class Frame(object):
         '''
 
 
-        bf = cv2.BFMatcher(cv2.NORM_HAMMING)
-        matches = bf.knnMatch(self.prevFrame.des, self.des, k=2)
-        self.matches = []
-        self.prev_matches = []
-        samples = []
-        for m, n in matches:
 
-            if m.distance < 0.75*n.distance and m.distance < 32 and np.linalg.norm(np.subtract(self.kp[m.trainIdx].pt, self.prevFrame.kp[m.queryIdx].pt)) < 500:
-                self.matches.append((self.kp[m.trainIdx]))
-                self.prev_matches.append(self.prevFrame.kp[m.queryIdx])
-                samples.append( ( self.kp[m.trainIdx].pt, self.prevFrame.kp[m.queryIdx].pt ) )
-
-        samples = np.array(samples)
-
-        model, inliers = ransac((samples[:,0], samples[:,1]), **self.params.get('ransac_params'))
-
-        print("Matches:  %d -> %d -> %d -> %d" % (len(self.des), len(matches), len(inliers), sum(inliers)))
-
-        self.matches = np.array(self.matches)
-        self.prev_matches = np.array(self.prev_matches)
-        self.matches = self.matches[inliers.nonzero()]
-        self.prev_matches = self.prev_matches[inliers.nonzero()]
-        '''
         pt2, status, err = cv2.calcOpticalFlowPyrLK(
                 self.img,
                 self.prevFrame.img,
@@ -89,7 +67,19 @@ class Frame(object):
 
         self.matches = [cv2.KeyPoint(x=f.ravel()[0], y=f.ravel()[1], _size=10) for f in self.corners[status==1]]
         self.prev_matches = [cv2.KeyPoint(x=f.ravel()[0], y=f.ravel()[1], _size=10) for f in pt2[status==1]]
-        '''
+
+        samples = [(self.corners[status==1][i], pt2[status==1][i]) for i in range(len(pt2[status==1]))]
+
+        samples = np.array(samples)
+        model, inliers = ransac((samples[:,0], samples[:,1]), **self.params.get('ransac_params'))
+
+        print("Matches:  %d -> %d -> %d -> %d" % (len(self.corners), len(self.matches), len(inliers), sum(inliers)))
+
+        self.matches = np.array(self.matches)
+        self.prev_matches = np.array(self.prev_matches)
+        self.matches = self.matches[inliers.nonzero()]
+        self.prev_matches = self.prev_matches[inliers.nonzero()]
+
 
     def kp_to_coords(self, kps):
         return [f.pt for f in kps]
