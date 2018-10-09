@@ -11,25 +11,24 @@ param = dict(
 		),
 
 	shi_tomasi = dict(
-		maxCorners = 5000,
-		qualityLevel = 0.001,
-		minDistance = 1),
+		maxCorners = 3000,
+		qualityLevel = 0.01,
+		minDistance = 7),
 
 	lk_params = dict(
 		winSize = (21,21),
-		maxLevel = 3,
 		criteria = (
 			cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT,
-			5,
-			0.3
+			30,
+			0.01
 			)
 		),
 
 	ransac_params = dict(
         model_class = T,
 		min_samples = 8,
-		residual_threshold = 0.5,
-		max_trials = 100
+		residual_threshold = 0.001,
+		max_trials = 10
 		),
 
 	em_params = dict(
@@ -37,6 +36,6 @@ param = dict(
 		pp = (0.,0.),
 		method = cv2.RANSAC,
 		prob = 0.995,
-		threshold=3.0
+		threshold= 3.0
 		)
 )
