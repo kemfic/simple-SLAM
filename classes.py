@@ -78,23 +78,20 @@ class Frame(object):
                 - Matching using Hamming Distance
         '''
 
-
-
-        pt2, status, err = cv2.calcOpticalFlowPyrLK(
-                self.prevFrame.img,
-                self.img,
-                self.prevFrame.corners,
-                self.corners,
-                **self.params.get('lk_params')
-                )
-        self.matches = [cv2.KeyPoint(x=f.ravel()[0], y=f.ravel()[1], _size=10) for f in pt2[status==1]]
-
-        self.prev_matches = [cv2.KeyPoint(x=f.ravel()[0], y=f.ravel()[1], _size=10) for f in self.prevFrame.corners[status==1]]
+        bf = cv2.BFMatcher(cv2.NORM_HAMMING)
+        matches = bf.knnMatch(self.prevFrame.des, self.des, k=2)
+        self.matches = []
+        self.prev_matches = []
+        samples = []
+        for m, n in matches:
+             if m.distance < 0.75*n.distance and m.distance < 32 and np.linalg.norm(np.subtract(self.kp[m.trainIdx].pt, self.prevFrame.kp[m.queryIdx].pt)) < 500:
+                self.matches.append((self.kp[m.trainIdx]))
+                self.prev_matches.append(self.prevFrame.kp[m.queryIdx])
+                samples.append( ( self.kp[m.trainIdx].pt, self.prevFrame.kp[m.queryIdx].pt ) )
 
         self.matches = np.array(self.matches)
         self.prev_matches = np.array(self.prev_matches)
 
-        samples = [(self.prevFrame.corners[status==1][i], pt2[status==1][i]) for i in range(len(self.matches))]
         samples = np.array(samples)
 
         samples[:, 0, :] = self.normalize(samples[:, 0, :])
@@ -125,7 +122,7 @@ class Frame(object):
         self.matches = np.array(self.matches)
         self.prev_matches = np.array(self.prev_matches)
 
-        F, mask = cv2.findFundamentalMat(np.array([self.kp_to_coords(self.matches)]), np.array([self.kp_to_coords(self.prev_matches)]), cv2.FM_LMEDS, 3, 0.99)
+        F, mask = cv2.findFundamentalMat(np.array([self.kp_to_coords(self.matches)]), np.array([self.kp_to_coords(self.prev_matches)]), cv2.FM_RANSAC, 1, 0.99)
 
         mask = np.squeeze(mask)
         #print(mask.shape)
@@ -225,7 +222,7 @@ class Frame(object):
 
     def annotate_traj(self):
         #print(self.T_accum)
-        self.traj = cv2.circle(self.prevFrame.traj, (500-10*self.T_accum[0], 500-10*self.T_accum[1]), 4, (255), 1)
+        self.traj = cv2.circle(self.prevFrame.traj, (500-2*self.T_accum[0], 500-2*self.T_accum[2]), 4, (255), 1)
 
     @property
     def pt(self):

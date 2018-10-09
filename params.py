@@ -11,7 +11,7 @@ param = dict(
 		),
 
 	shi_tomasi = dict(
-		maxCorners = 3000,
+		maxCorners = 10000,
 		qualityLevel = 0.01,
 		minDistance = 7),
 
@@ -27,7 +27,7 @@ param = dict(
 	ransac_params = dict(
         model_class = T,
 		min_samples = 8,
-		residual_threshold = 0.001,
+		residual_threshold = 0.1,
 		max_trials = 10
 		),
 
