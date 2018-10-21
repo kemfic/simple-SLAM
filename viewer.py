@@ -98,6 +98,7 @@ class MapViewer(object):
       #poses.append(np.linalg.inv(f.pose))
       poses.append(f.pose)
       # TODO: this takes wayy too long
+      # Why is this so slow?
       for pt in f.pts4d:
         pts = np.append(pts, [np.linalg.inv(f.pose).dot(pt)], axis=0)
     self.q.put((np.array(poses), np.squeeze(pts)))
