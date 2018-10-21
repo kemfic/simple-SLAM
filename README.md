@@ -4,7 +4,6 @@ A crappy visual SLAM implementation I'm working on to learn stuff
 
 
     - (WIP) only visual odometry works, currently
-    - 3D viewer in the works (coming soon uwu)
 <p float="left">
   <img src="resources/scene.png" height="250" />
   <img src="resources/vo.png" height="250" />
@@ -12,12 +11,12 @@ A crappy visual SLAM implementation I'm working on to learn stuff
 
 ## todo
    - pangolin viewer
-      - keyframe
       - point cloud
+        - points are acting funky
         - colors? just get img[kp.pt.x, kp.pt.y]
    - add lucas kanade tracking, and option to use either ORB matching or LK
       - use the cool masking trick from the NASA presentation
-
+   - optimizer!
 
 ## how to use
    - not sure if I can share the datasets i'm using, so just put any video file in the `vids/` folder
