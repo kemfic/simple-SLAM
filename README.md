@@ -10,10 +10,8 @@ A crappy visual SLAM implementation I'm working on to learn stuff
 </p>
 
 ## todo
-   - pangolin viewer
-      - point cloud
-        - points are acting funky
-        - colors? just get img[kp.pt.x, kp.pt.y]
+   - redo frame updater
+   - take a good hard look at how I'm triangulating points
    - add lucas kanade tracking, and option to use either ORB matching or LK
       - use the cool masking trick from the NASA presentation
    - optimizer!
