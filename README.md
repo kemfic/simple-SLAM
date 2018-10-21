@@ -1,9 +1,8 @@
 # ficiciSLAM
 
-A crappy visual SLAM implementation I'm working on to learn stuff
+A crappy visual SLAM implementation I'm working on to learn stuff. Still a work in progress.
 
 
-    - (WIP) only visual odometry works, currently
 <p float="left">
   <img src="resources/scene.png" height="250" />
   <img src="resources/vo.png" height="250" />
