@@ -9,7 +9,7 @@ class Stream(object):
   Stream Class contains consecutive frames and their associated data.
   '''
   frames = []
-  res = 640
+  res = 1000
   traj_scale = 0.5
   def __init__(self, img, K=None):
     '''
