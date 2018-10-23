@@ -6,8 +6,8 @@ from skimage.transform import EssentialMatrixTransform as T
 param = dict(
 	shi_tomasi = dict(
 		maxCorners = 10000,
-		qualityLevel = 0.001,
-		minDistance = 10),
+		qualityLevel = 0.01,
+		minDistance = 40),
 
 	ransac_params = dict(
         model_class = T,

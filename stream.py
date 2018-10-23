@@ -11,6 +11,7 @@ class Stream(object):
   frames = []
   res = 1000
   traj_scale = 0.5
+  focal = res
   def __init__(self, img, K=None):
     '''
     Adds first frame, initializes trajectory image, and camera intrinsics
@@ -32,8 +33,8 @@ class Stream(object):
       self.K = np.array(K)
     else:
       self.K = np.array([
-        [img.shape[0], 0, img.shape[1]//2],
-        [0, img.shape[0], img.shape[0]//2],
+        [self.focal, 0, img.shape[1]//2],
+        [0, self.focal, img.shape[0]//2],
         [0, 0, 1]])
 
   def update(self, img):

@@ -5,6 +5,9 @@ import pangolin as pango
 import OpenGL.GL as gl
 import numpy as np
 from multiprocessing import Process, Queue
+
+SCALE = -5.
+
 class MapViewer(object):
   '''
   3D viewer for ficiciSLAM written with pangolin/OpenGL
@@ -103,7 +106,7 @@ class MapViewer(object):
       # also, points want to show up in the same region
       # this entire thing is a clusterfuck
       for pt in f.pts4d:
-        pts = np.append(pts, [f.pose.dot(pt)], axis=0)
+        pts = np.append(pts, [SCALE *poses[-1].dot(pt)], axis=0)
     self.q.put((np.array(poses), np.squeeze(pts)))
 
   def stop(self):
