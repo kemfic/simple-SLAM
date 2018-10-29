@@ -8,6 +8,8 @@ A crappy visual SLAM implementation I'm working on to learn stuff. Still a work 
   <img src="resources/vo.png" height="250" />
 </p>
 
+![img](resources/2.png)
+
 ## todo
    - redo frame updater
    - take a good hard look at how I'm triangulating points
