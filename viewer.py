@@ -43,7 +43,7 @@ class MapViewer(object):
 
     # Projection and ModelView Matrices
     self.scam = pango.OpenGlRenderState(
-        pango.ProjectionMatrix(w, h, f, f, w //2, h//2, 0.1, 10000),
+        pango.ProjectionMatrix(w, h, f, f, w //2, h//2, 0.1, 100000),
         pango.ModelViewLookAt(0, -50.0, -10.0,
                               0.0, 0.0, 0.0,
                               0.0, -1.0, 0.0))#pango.AxisDirection.AxisY))
