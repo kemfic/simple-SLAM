@@ -105,20 +105,20 @@ class Stream(object):
 
 
     out = cv2.putText(out,
-      (' frame:  ' + str(len(self.frames))),
+      (' frame: ' + str(len(self.frames))),
       (0, self.frames[-1].size[0]-10),
       cv2.FONT_HERSHEY_SIMPLEX,
-      0.5,
+      1,
       (0,255,0),
-      1)
+      2)
 
     out = cv2.putText(out,
       (" inliers: " + str(len(idxs))),
-      (0, b.size[0] - 30),
+      (0, b.size[0] - 40),
       cv2.FONT_HERSHEY_SIMPLEX,
-      0.5,
+      1,
       (0,255,0),
-      1)
+      2)
     return out
 
   @property
