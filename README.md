@@ -1,12 +1,14 @@
 # ficiciSLAM
 
 A crappy visual SLAM implementation I'm working on to learn stuff. Still a work in progress.
-
+ - only VO works rn
 
 <p float="left">
   <img src="resources/scene.png" height="250" />
   <img src="resources/vo.png" height="250" />
 </p>
+
+![img](resources/2.png)
 
 ## todo
    - redo frame updater
