@@ -20,7 +20,13 @@ class Stream(object):
 
     self.scale = float(self.res) / max(img.shape)
     img = cv2.resize(img, (0,0), fx=self.scale, fy=self.scale)
-
+    if K is not None:
+      self.K = np.array(K)
+    else:
+      self.K = np.array([
+        [self.focal, 0, img.shape[1]//2],
+        [0, self.focal, img.shape[0]//2],
+        [0, 0, 1]])
     self.frames.append(Frame(img))
     '''
     Camera Intrinsics Matrix
@@ -29,13 +35,6 @@ class Stream(object):
     [0,  0,  1]
     '''
 
-    if K is not None:
-      self.K = np.array(K)
-    else:
-      self.K = np.array([
-        [self.focal, 0, img.shape[1]//2],
-        [0, self.focal, img.shape[0]//2],
-        [0, 0, 1]])
 
   def update(self, img):
     '''
@@ -45,7 +44,6 @@ class Stream(object):
 
     # resize
     img = cv2.resize(img, (0,0), fx=self.scale, fy=self.scale)
-
 
     # init a new frame
     # self.frames.append(Frame(img))
@@ -160,6 +158,7 @@ if __name__ == '__main__':
   disp_view = MapViewer()
   while(cap.isOpened()):
     ret, frame = cap.read()
+
 
     # add new image frame to stream
     stream.update(frame)
