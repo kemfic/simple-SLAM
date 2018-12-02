@@ -11,6 +11,8 @@ A crappy visual SLAM implementation I'm working on to learn stuff. Still a work 
 ![img](resources/2.png)
 
 ## todo
+   - add color to points
+     - get color from descriptor location
    - redo frame updater, for loop to add pts and poses to queue is bad
    - add lucas kanade tracking, and option to use either ORB matching or LK
       - use the cool masking trick from the NASA presentation
