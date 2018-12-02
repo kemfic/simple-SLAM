@@ -69,8 +69,9 @@ def get_R_t(E, pts2, pts1, K):
   #pts1 = normalize(K, pts1)
 
   ret, R, t, mask, points = cv2.recoverPose(E, pts2, pts1, cameraMatrix=K, distanceThresh=MAX_DIST)
-  points = points / points[-1, :]
-  print(points[:,1])
+  points = points / points[-1, :] # change scale to 1
+
+  points = points[:, points[2,:] >=1]
   return points.T, R, t
 
 def cvt2Rt(R, t):
