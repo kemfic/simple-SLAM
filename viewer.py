@@ -80,9 +80,10 @@ class MapViewer(object):
       # Render keypoints
       if self.state[1].shape[0] != 0:
         gl.glPointSize(1)
+
         gl.glColor3f(1.0, 1.0, 1.0)
-        #print(self.state[0].shape)
-        pango.DrawPoints(self.state[1])#, self.state[2])
+        print(self.state[1].shape)
+        pango.DrawPoints(self.state[1])
     pango.FinishFrame()
 
   def update(self, stream=None):
@@ -105,11 +106,11 @@ class MapViewer(object):
       # memory leak?
       # also, points want to show up in the same region
       # this entire thing is a clusterfuck
-    '''
+
     for pt in f.pts4d:
-        pts = np.append(pts, [SCALE *poses[-1].dot(pt)], axis=0)
-    '''
-    pts = []
+        pts = np.append(pts, [poses[-1].dot(pt)], axis=0)
+
+    #pts = []
     self.q.put((np.array(poses), np.squeeze(pts)))
   def stop(self):
     self.vt.terminate()
