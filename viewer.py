@@ -39,7 +39,7 @@ class MapViewer(object):
     f = 2000 #420
 
     pango.CreateWindowAndBind("ficiciSLAM Map Viewer", w, h)
-    gl.glEnable(gl.GL_DEPTH_TEST)
+    gl.glEnable(gl.GL_DEPTH_TEST) #prevents point overlapping issue, check out fake-stereo's issues for more info
 
     # Projection and ModelView Matrices
     self.scam = pango.OpenGlRenderState(
