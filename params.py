@@ -7,7 +7,7 @@ param = dict(
 	shi_tomasi = dict(
 		maxCorners = 10000,
 		qualityLevel = 0.01,
-		minDistance =3),
+		minDistance =5),
 
 	ransac_params = dict(
         model_class = T,

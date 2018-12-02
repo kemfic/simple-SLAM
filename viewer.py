@@ -107,8 +107,8 @@ class MapViewer(object):
       # also, points want to show up in the same region
       # this entire thing is a clusterfuck
 
-    for pt in f.pts4d:
-        pts = np.append(pts, [poses[-1].dot(pt)], axis=0)
+      for pt in f.pts4d:
+          pts = np.append(pts, [poses[-1].dot(pt)], axis=0)
 
     #pts = []
     self.q.put((np.array(poses), np.squeeze(pts)))
