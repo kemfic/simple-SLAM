@@ -71,7 +71,7 @@ def get_R_t(E, pts2, pts1, K):
   ret, R, t, mask, points = cv2.recoverPose(E, pts2, pts1, cameraMatrix=K, distanceThresh=MAX_DIST)
   points = points / points[-1, :] # change scale to 1
 
-  points = points[:, points[2,:] >=1]
+  points = points[:, points[2,:] >0.0] #remove points located behind camera
   return points.T, R, t
 
 def cvt2Rt(R, t):
