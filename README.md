@@ -1,7 +1,7 @@
 # ficiciSLAM
 
 A crappy visual SLAM implementation I'm working on to learn stuff. Still a work in progress.
- - only VO works rn
+[video playlist](https://www.youtube.com/playlist?list=PLz9N52s5FSIUFNoLjyNy_9EW42Ngy6ipn)
 
 <p float="left">
   <img src="resources/scene.png" height="250" />
