@@ -6,11 +6,14 @@ A crappy visual SLAM implementation I'm working on to learn stuff. Still a work 
 [video playlist](https://www.youtube.com/playlist?list=PLz9N52s5FSIUFNoLjyNy_9EW42Ngy6ipn)
 
 <p float="left">
-  <img src="resources/scene.png" height="250" />
-  <img src="resources/vo.png" height="250" />
+  <img src="resources/scene.png" height="200" />
+  <img src="resources/vo.png" height="200" />
 </p>
 
-![img](resources/2.png)
+<p float="left">
+  <img src="resources/2.png" height="250" />
+  <img src="resources/Untitled.png" height="250" />
+</p>
 
 ## todo
    - add color to points
