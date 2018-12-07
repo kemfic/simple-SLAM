@@ -36,7 +36,7 @@ want to learn more about slam/visual odometry?
    - [Avi Singh's visual odometry projects](https://github.com/avisingh599/mono-vo)
    - [twitchslam by geohot](https://github.com/geohot/twitchslam)
    - [UZH and ETH Zurich's course (Vision Algorithms for Mobile Robotics)](https://web.archive.org/web/20171231011504/http://rpg.ifi.uzh.ch/teaching.html)
-   - PTAM, ORB-SLAM, LSD-SLAM
+   - S-PTAM, PTAM, ORB-SLAM, LSD-SLAM
      - papers and code are super useful
    - OpenCV references in API documentation
      - look in the SFM modules
