@@ -28,6 +28,10 @@ class MapViewer(object):
     self.vt.daemon = True
     self.vt.start()
 
+
+    self.poses, self.colors = [], []
+    self.pts = np.empty((0,4))
+
   def viewer_thread(self, q):
     self.viewer_init()
 
@@ -93,25 +97,13 @@ class MapViewer(object):
     if self.q is None:
       return
 
-    poses, colors = [], []
-    pts = np.empty((0,4))
 
-    for i,f in enumerate(stream.frames):
+    self.poses.append(stream.frames[-1].pose)
+    for pt in stream.frames[-1].pts4d:
+      self.pts = np.append(self.pts, [self.poses[-1].dot(pt)], axis=0)
 
-      # we gotta invert pose matrices for display
-      #poses.append(np.linalg.inv(f.pose))
-      poses.append(f.pose)
-      # TODO: this takes wayy too long
-      # Why is this so slow?
-      # memory leak?
-      # also, points want to show up in the same region
-      # this entire thing is a clusterfuck
+    self.q.put((np.array(self.poses), np.squeeze(self.pts)))
 
-      for pt in f.pts4d:
-          pts = np.append(pts, [poses[-1].dot(pt)], axis=0)
-
-    #pts = []
-    self.q.put((np.array(poses), np.squeeze(pts)))
   def stop(self):
     self.vt.terminate()
     self.vt.join()
