@@ -163,7 +163,8 @@ if __name__ == '__main__':
     # add new image frame to stream
     stream.update(frame)
 
-    disp_view.update(stream)
+    if cap.get(cv2.CAP_PROP_POS_FRAMES) > 2:
+      disp_view.update(stream)
 
     cv2.imshow('stream', stream.annotate)
     cv2.resizeWindow('stream', 640, 640)

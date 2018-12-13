@@ -99,9 +99,16 @@ class MapViewer(object):
 
 
     self.poses.append(stream.frames[-1].pose)
+
+    '''
     for pt in stream.frames[-1].pts4d:
       self.pts = np.append(self.pts, [self.poses[-1].dot(pt)], axis=0)
-
+    '''
+    print(self.poses[-1].T.shape)
+    print(stream.frames[-1].pts4d.shape)
+    cur_pts = np.dot(stream.frames[-1].pts4d, self.poses[-1].T)
+    self.pts = np.append(self.pts, cur_pts, axis=0)
+    print(self.pts.shape)
     self.q.put((np.array(self.poses), np.squeeze(self.pts)))
 
   def stop(self):

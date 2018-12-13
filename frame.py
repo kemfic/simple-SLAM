@@ -4,7 +4,7 @@ import sys
 from params import *
 from skimage.measure import ransac
 
-MAX_DIST  = 100000
+MAX_DIST  = 100
 MIN_DISPLACE = 0 # Minimum feature displacement between frames
 def get_corners_st(img, params=param.get("shi_tomasi")):
   criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
