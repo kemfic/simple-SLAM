@@ -100,11 +100,10 @@ class MapViewer(object):
 
     self.poses.append(stream.frames[-1].pose)
 
-    print(self.poses[-1].T.shape)
-    print(stream.frames[-1].pts4d.shape)
+    # transform frame points to be displayed in world view
     cur_pts = np.dot(stream.frames[-1].pts4d, self.poses[-1].T)
+    # add to the entire map
     self.pts = np.append(self.pts, cur_pts, axis=0)
-    print(self.pts.shape)
     self.q.put((np.array(self.poses), np.squeeze(self.pts)))
 
   def stop(self):
