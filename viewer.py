@@ -86,7 +86,7 @@ class MapViewer(object):
         gl.glPointSize(1)
 
         gl.glColor3f(1.0, 1.0, 1.0)
-        print(self.state[1].shape)
+        #print(self.state[1].shape)
         pango.DrawPoints(self.state[1])
     pango.FinishFrame()
 

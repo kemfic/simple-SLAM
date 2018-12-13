@@ -157,6 +157,7 @@ if __name__ == '__main__':
 
   disp_view = MapViewer()
   while(cap.isOpened()):
+    start = time.time()
     ret, frame = cap.read()
 
 
@@ -169,6 +170,9 @@ if __name__ == '__main__':
     cv2.imshow('stream', stream.annotate)
     cv2.resizeWindow('stream', 640, 640)
     cv2.imshow('traj', stream.annotate_traj)
+
+    stop = time.time()
+    print(1/(stop-start))
     if cv2.waitKey(1) & 0xFF == ord('q'):
       print("exiting...")
       break
