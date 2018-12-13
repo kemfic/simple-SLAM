@@ -2,7 +2,7 @@ from frame import *
 import glob
 import OpenGL.GL as gl
 from viewer import *
-
+import time
 traj_size = (700, 700)
 class Stream(object):
   '''
