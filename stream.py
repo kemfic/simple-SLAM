@@ -147,7 +147,7 @@ if __name__ == '__main__':
   cap = cv2.VideoCapture(vid)
   cv2.namedWindow('stream', cv2.WINDOW_NORMAL)
   cv2.namedWindow('traj', cv2.WINDOW_NORMAL)
-  cv2.moveWindow("stream", traj_size[1], 1)
+  cv2.moveWindow("stream", 1920+640, 1)
 
 
   ret, frame = cap.read()
