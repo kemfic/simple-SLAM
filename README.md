@@ -18,12 +18,9 @@ A crappy visual SLAM implementation I'm working on to learn stuff. Still a work 
 </p>
 --->
 ## todo
-   - add color to points
-     - get color from feature location in image
-   - bundle adjustment!
-   - redo frame updater, for loop to add pts and poses to queue is bad
-   - add lucas kanade tracking, and option to use either ORB matching or LK
-      - use the cool masking trick from the NASA presentation
+   - add keyframes
+   - refactor everything
+   - figure out what bundle adjustment is
 
 ## how to use
    - not sure if I can share the datasets i'm using, so just put any video file in the `vids/` folder
