@@ -29,7 +29,7 @@ class MapViewer(object):
     self.vt.start()
 
 
-    self.poses, self.colors = [], []
+    self.poses, self.colors = [], np.empty((0,3))
     self.pts = np.empty((0,4))
 
   def viewer_thread(self, q):
@@ -65,6 +65,7 @@ class MapViewer(object):
     # Clear and Activate Screen (we got a real nice shade of gray
     gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
     gl.glClearColor(0.15, 0.15, 0.15, 0.0)
+    #gl.glClearColor(1.0, 1.0, 1.0, 0.0)
     self.dcam.Activate(self.scam)
 
     # Render
@@ -86,7 +87,6 @@ class MapViewer(object):
         gl.glPointSize(1)
 
         gl.glColor3f(1.0, 1.0, 1.0)
-        #print(self.state[1].shape)
         pango.DrawPoints(self.state[1])
     pango.FinishFrame()
 
@@ -102,9 +102,10 @@ class MapViewer(object):
 
     # transform frame points to be displayed in world view
     cur_pts = np.dot(stream.frames[-1].pts4d, self.poses[-1].T)
+    self.colors = np.append(self.colors, stream.frames[-1].color[...,::-1], axis=0)
     # add to the entire map
     self.pts = np.append(self.pts, cur_pts, axis=0)
-    self.q.put((np.array(self.poses), np.squeeze(self.pts)))
+    self.q.put((np.array(self.poses), np.squeeze(self.pts),np.squeeze(self.colors)))
 
   def stop(self):
     self.vt.terminate()

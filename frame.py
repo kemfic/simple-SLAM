@@ -72,7 +72,8 @@ def get_R_t(E, pts2, pts1, K):
   points = points / points[-1, :] # change scale to 1
 
   points = points[:, points[2,:] >0.0] #remove points located behind camera
-  return points.T, R, t
+  recover_coords = pts2[~np.all(mask == 0, axis=1)].astype(np.uint8)
+  return points.T, R, t, recover_coords
 
 def cvt2Rt(R, t):
   Rt = np.eye(4)
@@ -104,13 +105,15 @@ class Frame(object):
   pts4d = np.array([[0., 0., 0., 1.]])
   # Each frame contains indexes for matches between itself and previous frame
   des_match_idx = None # descriptor match[i] = (current_idx, prev_idx)
-
+  rt_pts = []
+  color = []
   def __init__(self, img):
     self.img = img
     self.coords = get_corners_st(cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY))
     self.coords, self.des = get_features_orb(self.img, self.coords)
     self.size = self.img.shape
-
+    idxr = self.coords.astype(np.uint8)
+    #print(np.shape(self.img[idxr[:,0],idxr[:,1]]))
   @property
   def annotate(self):
     out = self.img

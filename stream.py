@@ -67,11 +67,17 @@ class Stream(object):
 
     # returns R and t (incremental), and triangulated points
     # TODO: understand how and why this works
-    f_cur.pts4d, f_cur.R, f_cur.t = get_R_t(f_cur.F,
+    f_cur.pts4d, f_cur.R, f_cur.t, f_cur.rt_pts = get_R_t(f_cur.F,
                                              f_cur.coords[f_cur.des_match_idx[:,0]],
                                              f_prev.coords[f_cur.des_match_idx[:,1]],
                                              self.K)
-
+    f_cur.color = f_cur.img[f_cur.rt_pts[:,0],f_cur.rt_pts[:,1]]
+    '''
+    print(np.shape(idxs))
+    print(np.shape(f_cur.des_match_idx))
+    print(np.shape(f_cur.pts4d))
+    print(" ------------- ")
+    '''
     # converts R and t to pose matrix in homogenous coords (global coords)
     Rt = np.array(cvt2Rt(f_cur.R, f_cur.t))
     f_cur.pose = f_prev.pose.dot(Rt)
