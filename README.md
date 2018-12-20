@@ -45,6 +45,6 @@ want to learn more about slam/visual odometry?
    - pangolin (we use uoip's fork for its bindings, since its a bit more python-friendly and intuitive)
       - https://github.com/uoip/pangolin
 
-## LICENSE
+## LOICENSE
 
 MIT license. Do what you want with it, but please attribute my work if you do. Also don't sue me.
