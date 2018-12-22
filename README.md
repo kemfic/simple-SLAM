@@ -2,6 +2,7 @@
 
 A crappy visual SLAM implementation I'm working on to learn stuff. Still a work in progress.
 
+big refactor coming soon
 
 [video playlist](https://www.youtube.com/playlist?list=PLz9N52s5FSIUFNoLjyNy_9EW42Ngy6ipn)
 
