@@ -32,7 +32,7 @@ class MapViewer(object):
   def viewer_thread(self, q):
     self.viewer_init()
 
-    while True:
+    while not pango.ShouldQuit():#True:
       self.viewer_refresh(q)
 
   def viewer_init(self):
