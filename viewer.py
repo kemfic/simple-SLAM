@@ -11,9 +11,6 @@ SCALE = -5.
 class MapViewer(object):
   '''
   3D viewer for ficiciSLAM written with pangolin/OpenGL
-    - Heavily based off twitchslam's pangolin viewer (george, you a real G), and uoip's viewer from their S-PTAM implementation
-      - https://github.com/geohot/twitchslam/blob/master/display.py
-      - https://github.com/uoip/stereo_ptam/blob/master/viewer.py
 
   TODO:
     - write keyframe viewer
