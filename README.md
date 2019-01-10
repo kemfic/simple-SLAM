@@ -39,7 +39,7 @@ want to learn more about slam/visual odometry?
    - OpenCV references in API documentation
      - look in the SFM modules
 
-## Dependencies
+## dependencies
    - OpenCV
    - Numpy
    - Scikit-image

@@ -152,7 +152,7 @@ if __name__ == '__main__':
 
   cap = cv2.VideoCapture(vid)
   cv2.namedWindow('stream', cv2.WINDOW_NORMAL)
-  cv2.namedWindow('traj', cv2.WINDOW_NORMAL)
+  #cv2.namedWindow('traj', cv2.WINDOW_NORMAL)
   cv2.moveWindow("stream", 1920+640, 1)
 
 
@@ -160,21 +160,24 @@ if __name__ == '__main__':
   stream = Stream(frame)
   cv2.resizeWindow('traj', traj_size[1], traj_size[0])
 
-
+  timer = []
   disp_view = MapViewer()
   while(cap.isOpened()):
     ret, frame = cap.read()
 
-
+    start = time.time()
     # add new image frame to stream
     stream.update(frame)
 
     if cap.get(cv2.CAP_PROP_POS_FRAMES) > 2:
       disp_view.update(stream)
+    stop = time.time()
 
+    timer.append(stop - start)
+    print(1/np.mean(timer))
     cv2.imshow('stream', stream.annotate)
     cv2.resizeWindow('stream', 640, 640)
-    cv2.imshow('traj', stream.annotate_traj)
+    #cv2.imshow('traj', stream.annotate_traj)
 
 
     if cv2.waitKey(1) & 0xFF == ord('q'):

@@ -5,9 +5,9 @@ from skimage.transform import EssentialMatrixTransform as T
 
 param = dict(
 	shi_tomasi = dict(
-		maxCorners = 10000,
+		maxCorners = 1000,
 		qualityLevel = 0.01,
-		minDistance = 7),
+		minDistance = 15),
 
 	ransac_params = dict(
         model_class = T,
