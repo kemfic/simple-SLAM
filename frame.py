@@ -4,7 +4,7 @@ import sys
 from params import *
 from skimage.measure import ransac
 
-MAX_DIST  = 100
+MAX_DIST  = 10
 MIN_DISPLACE = 0 # Minimum feature displacement between frames
 def get_corners_st(img, params=param.get("shi_tomasi")):
   criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
@@ -49,9 +49,11 @@ def estimate_f_matrix(idxs, coord1, coord2, K, param=param.get("ransac_params"))
   Edit: changed to Essential Matrix Estimation
   http://scikit-image.org/docs/dev/auto_examples/transform/plot_fundamental_matrix.html#sphx-glr-auto-examples-transform-plot-fundamental-matrix-py
   '''
-  pt1 = normalize(K, coord1[idxs[:,0]])
-  pt2 = normalize(K, coord2[idxs[:,1]])
+  #pt1 = normalize(K, coord1[idxs[:,0]])
+  #pt2 = normalize(K, coord2[idxs[:,1]])
   #model, inliers = ransac((pt1, pt2), **param)
+  pt1 = coord1[idxs[:,0]]
+  pt2 = coord2[idxs[:,1]]
 
   #return idxs[inliers], model.params
   E, mask = cv2.findEssentialMat(coord1[idxs[:,0]], coord2[idxs[:,1]], cameraMatrix=K, method=cv2.RANSAC, prob=0.999, threshold=1.0)

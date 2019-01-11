@@ -8,7 +8,11 @@ import time
 from stream import Stream
 from viewer import MapViewer
 from ba import BundleAdjustment
+from params import Cam
 
 class Optimizer(object):
   def __init__(self, stream):
-    self.ba = BundleAdjustment():
+    self.ba = BundleAdjustment()
+
+  def update(self, stream):
+    NotImplemented

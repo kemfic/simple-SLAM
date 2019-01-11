@@ -27,6 +27,7 @@ class Stream(object):
         [self.focal, 0, img.shape[1]//2],
         [0, self.focal, img.shape[0]//2],
         [0, 0, 1]])
+    print(self.K)
     self.frames.append(Frame(img))
     '''
     Camera Intrinsics Matrix

@@ -2,6 +2,16 @@ import cv2
 import numpy as np
 from skimage.transform import EssentialMatrixTransform as T
 
+class Params(object):
+  def __init__(self):
+    NotImplemented
+
+class Cam(object):
+  def __init__(self):
+    self.fx = 1000
+    self.fy = 1000
+    self.cx = 500
+    self.cy = 151
 
 param = dict(
 	shi_tomasi = dict(
