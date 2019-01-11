@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 import g2o
 
 class BundleAdjustment(g2o.SparseOptimizer):

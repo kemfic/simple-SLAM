@@ -10,6 +10,8 @@ from viewer import MapViewer
 from ba import BundleAdjustment
 from params import Cam
 
+from g2o.contrib import SmoothEstimatePropagator
+
 class Optimizer(object):
   def __init__(self, stream):
     self.ba = BundleAdjustment()
