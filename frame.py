@@ -52,6 +52,14 @@ def estimate_f_matrix(idxs, coord1, coord2, K, param=param.get("ransac_params"))
   #pt1 = normalize(K, coord1[idxs[:,0]])
   #pt2 = normalize(K, coord2[idxs[:,1]])
   #model, inliers = ransac((pt1, pt2), **param)
+  
+  idxs = np.array(idxs)
+  coord1 = np.array(coord1)
+  coord2 = np.array(coord2)
+  print(idxs.shape)
+  print(coord1.shape)
+  print(coord2.shape)
+
   pt1 = coord1[idxs[:,0]]
   pt2 = coord2[idxs[:,1]]
 
