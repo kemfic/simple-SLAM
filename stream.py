@@ -149,9 +149,9 @@ class Stream(object):
 if __name__ == '__main__':
   # Can pick between different input videos
   if len(sys.argv) > 1:
-    vid = glob.glob('./vids/'+ str(sys.argv[1]) + '.*')[0]
+    vid = glob.glob('./dataset/vids/'+ str(sys.argv[1]) + '.*')[0]
   else:
-    vid = './vids/1.mp4'
+    vid = './dataset/vids/1.mp4'
 
   cap = cv2.VideoCapture(vid)
   cv2.namedWindow('stream', cv2.WINDOW_NORMAL)
