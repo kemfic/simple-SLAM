@@ -27,7 +27,7 @@ class Stream(object):
         [self.focal, 0, img.shape[1]//2],
         [0, self.focal, img.shape[0]//2],
         [0, 0, 1]])
-    print(self.K)
+    #print(self.K)
     self.frames.append(Frame(img))
     '''
     Camera Intrinsics Matrix
@@ -72,7 +72,9 @@ class Stream(object):
                                              f_cur.coords[f_cur.des_match_idx[:,0]],
                                              f_prev.coords[f_cur.des_match_idx[:,1]],
                                              self.K)
+    #print(f_cur.rt_pts.shape)
     f_cur.color = f_cur.img[f_cur.rt_pts[:,0],f_cur.rt_pts[:,1]]
+    #print(np.shape(f_cur.color))
     '''
     print(np.shape(idxs))
     print(np.shape(f_cur.des_match_idx))
@@ -175,7 +177,7 @@ if __name__ == '__main__':
     stop = time.time()
 
     timer.append(stop - start)
-    print(1/np.mean(timer))
+    #print(1/np.mean(timer))
     cv2.imshow('stream', stream.annotate)
     cv2.resizeWindow('stream', 640, 640)
     #cv2.imshow('traj', stream.annotate_traj)

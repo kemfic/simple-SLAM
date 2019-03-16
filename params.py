@@ -15,14 +15,14 @@ class Cam(object):
 
 param = dict(
 	shi_tomasi = dict(
-		maxCorners = 1000,
+		maxCorners = 3000,
 		qualityLevel = 0.01,
-		minDistance = 15),
+		minDistance = 5),
 
 	ransac_params = dict(
         model_class = T,
-		min_samples = 8,
-		residual_threshold = 0.01,
+		min_samples = 10,
+		residual_threshold = 0.02,
 		max_trials = 100
 		)
 

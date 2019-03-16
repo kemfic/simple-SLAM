@@ -7,7 +7,7 @@ from skimage.measure import ransac
 MAX_DIST  = 10
 MIN_DISPLACE = 0 # Minimum feature displacement between frames
 def get_corners_st(img, params=param.get("shi_tomasi")):
-  criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+  #criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
   corners = cv2.goodFeaturesToTrack(img, **params)
   return corners
 
@@ -33,13 +33,18 @@ def match_frames(des1, des2, pt1, pt2):
   kp2 = coords_to_kp(pt2)
   bf = cv2.BFMatcher(cv2.NORM_HAMMING)
   matches = bf.knnMatch(des1, des2, k=2)
+
   # Lowe's Ratio Test
   good = []
   des_idxs = []
   for m, n in matches:
     if m.distance < 0.75*n.distance and MIN_DISPLACE < np.linalg.norm(np.subtract(kp2[m.trainIdx].pt, kp1[m.queryIdx].pt)) < 300: #m.distance < 32
-      good.append(m.trainIdx)
-      des_idxs.append((m.queryIdx, m.trainIdx))
+      if m.distance < 20:
+        good.append(m.trainIdx)
+        des_idxs.append((m.queryIdx, m.trainIdx))
+
+
+
 
   return des_idxs
 
@@ -56,17 +61,19 @@ def estimate_f_matrix(idxs, coord1, coord2, K, param=param.get("ransac_params"))
   idxs = np.array(idxs)
   coord1 = np.array(coord1)
   coord2 = np.array(coord2)
-  print(idxs.shape)
-  print(coord1.shape)
-  print(coord2.shape)
+  #print(idxs.shape)
+  #print(coord1.shape)
+  #print(coord2.shape)
 
   pt1 = coord1[idxs[:,0]]
   pt2 = coord2[idxs[:,1]]
 
   #return idxs[inliers], model.params
   E, mask = cv2.findEssentialMat(coord1[idxs[:,0]], coord2[idxs[:,1]], cameraMatrix=K, method=cv2.RANSAC, prob=0.999, threshold=1.0)
+  #E, mask = cv2.findFundamentalMat(coord1[idxs[:,0]], coord2[idxs[:,1]], method=cv2.FM_RANSAC)
+
   mask = mask.flatten()
-  idxs = idxs[(mask==1), :]
+  #idxs = idxs[(mask==1), :]
 
   return idxs, E
 
@@ -80,9 +87,13 @@ def get_R_t(E, pts2, pts1, K):
 
   ret, R, t, mask, points = cv2.recoverPose(E, pts2, pts1, cameraMatrix=K, distanceThresh=MAX_DIST)
   points = points / points[-1, :] # change scale to 1
-
+  recover_coords = pts2[points[2,:] >0.0].astype(np.uint8)
   points = points[:, points[2,:] >0.0] #remove points located behind camera
-  recover_coords = pts2[~np.all(mask == 0, axis=1)].astype(np.uint8)
+
+
+  #print("points " + str(np.shape(points)))
+  #print("coords " + str(np.shape(recover_coords)))
+
   return points.T, R, t, recover_coords
 
 def cvt2Rt(R, t):
