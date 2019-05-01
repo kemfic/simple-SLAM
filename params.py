@@ -16,7 +16,7 @@ class Cam(object):
 param = dict(
 	shi_tomasi = dict(
 		maxCorners = 3000,
-		qualityLevel = 0.01,
+		qualityLevel = 0.1,
 		minDistance = 5),
 
 	ransac_params = dict(

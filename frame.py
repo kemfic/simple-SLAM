@@ -39,9 +39,8 @@ def match_frames(des1, des2, pt1, pt2):
   des_idxs = []
   for m, n in matches:
     if m.distance < 0.75*n.distance and MIN_DISPLACE < np.linalg.norm(np.subtract(kp2[m.trainIdx].pt, kp1[m.queryIdx].pt)) < 300: #m.distance < 32
-      if m.distance < 20:
-        good.append(m.trainIdx)
-        des_idxs.append((m.queryIdx, m.trainIdx))
+      good.append(m.trainIdx)
+      des_idxs.append((m.queryIdx, m.trainIdx))
 
 
 
