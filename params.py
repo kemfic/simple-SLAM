@@ -1,30 +1,15 @@
-import cv2
 import numpy as np
-from skimage.transform import EssentialMatrixTransform as T
 
-class Params(object):
-  def __init__(self):
-    NotImplemented
+focal = 707.0912
+K = np.array([
+           [focal, 0.0, 601.8873],
+           [0.0, focal, 183.1104],
+           [0.0,0.0,1.0]])
 
-class Cam(object):
-  def __init__(self):
-    self.fx = 1000
-    self.fy = 1000
-    self.cx = 500
-    self.cy = 151
 
 param = dict(
-	shi_tomasi = dict(
-		maxCorners = 3000,
-		qualityLevel = 0.1,
-		minDistance = 5),
-
-	ransac_params = dict(
-        model_class = T,
-		min_samples = 10,
-		residual_threshold = 0.02,
-		max_trials = 100
-		)
-
-)
-
+  gftt = dict(maxCorners = 100000,
+              qualityLevel = 0.01,
+              minDistance =10)
+              
+              )
