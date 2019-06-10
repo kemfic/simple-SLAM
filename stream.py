@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Usage:
-  ./simple_vo.py <sequence> [<gt>]
+  ./stream.py <sequence> [<gt>]
 """
 
 from docopt import docopt
