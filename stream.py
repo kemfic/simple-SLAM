@@ -108,7 +108,9 @@ if __name__ == "__main__":
     vo.prevFrame = vo.curFrame
   
   
-  print("exiting...")
-  viewer.stop()
   cap.release()
+  print("exiting...")
+  vt_done.wait()
+  viewer.stop()
+  
   #cv2.destroyAllWindows()
