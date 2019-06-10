@@ -78,7 +78,7 @@ if __name__ == "__main__":
   viewer = Viewer3D()
   
   if args['<gt>'] is not None:
-    txt = np.loadtxt("vid/06.txt")
+    txt = np.loadtxt(args['<gt>'])
     gt_prev = np.eye(4)
     error = []
   
