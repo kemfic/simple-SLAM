@@ -57,9 +57,14 @@ class Frame(object):
     prev_pts = prev.coords[self.des_idxs[:,1]]
     cur_pts = self.coords[self.des_idxs[:,0]]
     ret, R, t, mask, pts = cv2.recoverPose(self.E, prev_pts, cur_pts, cameraMatrix=self.K, distanceThresh=1000)
-    t = scale*t/t[-1]
+    print(t[-1])
     
-    Rt = np.eye(4)
-    Rt[:3, :3] = R
-    Rt[:3, 3] = np.squeeze(t)
-    self.Rt = prev.Rt.dot(Rt)
+    if abs(t[-1]) > 0.001 and np.argmax(np.abs(scale*t/t[-1])) == 2:
+      t = scale*t/t[-1]
+      Rt = np.eye(4)
+      Rt[:3, :3] = R
+      Rt[:3, 3] = np.squeeze(t)
+      self.Rt = prev.Rt.dot(Rt)
+    else:
+      self.Rt = prev.Rt
+    

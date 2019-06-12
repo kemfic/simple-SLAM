@@ -32,7 +32,7 @@ class SimpleVO(object):
     self.curFrame.match_frames(self.prevFrame)
     self.curFrame.get_essential_matrix(self.prevFrame)
 
-
+    print("frame: ", len(self.poses))
     #TODO: set scale to 1.0 if there is no gt
     if gt is not None:
       self.gt.append(gt)
@@ -40,12 +40,16 @@ class SimpleVO(object):
     
     self.curFrame.get_Rt(self.prevFrame, self.scale)
     self.poses.append(self.curFrame.Rt)
-    
+    #print(len(self.poses), self.curFrame.Rt)    
     if gt is not None:
       error_r, error_t = getError(vo.poses[-1],vo.poses[-2],vo.gt[-1], vo.gt[-2])
 
       self.errors.append((error_r, error_t))
-
+    else:
+      # not exactly error, but the delta of pose between frames i guess
+      error_r, error_t = getError(vo.poses[-1], np.eye(4), vo.poses[-2], np.eye(4))
+      self.errors.append((error_r, error_t))
+  
   def annotate_frames(self):
     """
     a is current frame
@@ -84,10 +88,9 @@ if __name__ == "__main__":
   
   while not vt_done.is_set() and cap.get(cv2.CAP_PROP_POS_FRAMES) < cap.get(cv2.CAP_PROP_FRAME_COUNT):
     ret, frame = cap.read()
-    #cv2.imshow("frame", vo.annotate_frames())
+    #cv2.imshow("frame", frame)
     
-    framenum = int(cap.get(cv2.CAP_PROP_POS_FRAMES))
-    
+    framenum = int(cap.get(cv2.CAP_PROP_POS_FRAMES))    
     if args['<gt>'] is not None:
       gt = np.eye(4)
       gt[:3, :] = txt[framenum].reshape(3,4)
@@ -106,7 +109,7 @@ if __name__ == "__main__":
         error.append((p_tform * np.linalg.inv(gt_tform))[:3, -1])
 
     vo.prevFrame = vo.curFrame
-  
+    #cv2.waitKey(1) 
   
   cap.release()
   print("exiting...")
