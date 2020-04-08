@@ -1,4 +1,4 @@
-# ficiciSLAM
+# simple-SLAM
 
 A crappy visual SLAM implementation I'm working on to learn stuff. Still a work in progress.
 
